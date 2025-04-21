@@ -2,10 +2,28 @@ body {
     margin: 0;
     height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background: linear-gradient(135deg, #210F37, #4F1C51);
     font-family: Arial, sans-serif;
+}
+
+.calculator-title {
+    color: #DCA06D;
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.calculator-icon {
+    font-size: 2.5rem;
 }
 
 .calculator-container {
