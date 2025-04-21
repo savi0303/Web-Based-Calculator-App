@@ -32,14 +32,14 @@ function clearDisplay() {
 
 function calculate() {
     try {
-        let expression = resultDisplay.value.replace('^', '**');
+        let expression = resultDisplay.value.replace(/\^/g, '**');
         let result = eval(expression); // Note: eval is used for simplicity; consider a safer parser for production
         if (isNaN(result) || !isFinite(result)) {
             resultDisplay.value = 'Error';
             return;
         }
         resultDisplay.value = result;
-        addToHistory(`${expression} = ${result}`);
+        addToHistory(`${resultDisplay.value.replace(/\*\*/g, '^')} = ${result}`);
     } catch (error) {
         resultDisplay.value = 'Error';
     }
@@ -88,3 +88,54 @@ document.addEventListener('keydown', (event) => {
         appendToDisplay(key);
     }
 });
+
+// Create floating symbols
+function createFloatingSymbols() {
+    const symbols = ['+', '-', '×', '÷', '%', '=', '^', '√', '/'];
+    const symbolsContainer = document.getElementById('floating-symbols');
+    const numSymbols = 30;
+
+    for (let i = 0; i < numSymbols; i++) {
+        const symbol = document.createElement('div');
+        symbol.className = 'symbol';
+        symbol.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        
+        // Random starting position
+        const startX = Math.random() * 100;
+        const startY = Math.random() * 100;
+        symbol.style.left = `${startX}%`;
+        symbol.style.top = `${startY}%`;
+        
+        // Random movement
+        const translateX = (Math.random() - 0.5) * 100;
+        const translateY = (Math.random() - 0.5) * 100;
+        const rotation = (Math.random() - 0.5) * 360;
+        
+        symbol.style.setProperty('--translate-x', `${translateX}vw`);
+        symbol.style.setProperty('--translate-y', `${translateY}vh`);
+        symbol.style.setProperty('--rotation', `${rotation}deg`);
+        
+        // Random size and opacity
+        symbol.style.fontSize = `${Math.random() * 24 + 16}px`;
+        
+        // Random animation duration
+        const duration = Math.random() * 15 + 10;
+        symbol.style.animationDuration = `${duration}s`;
+        
+        // Random delay
+        const delay = Math.random() * 10;
+        symbol.style.animationDelay = `${delay}s`;
+        
+        symbolsContainer.appendChild(symbol);
+    }
+}
+
+// Initialize floating symbols
+createFloatingSymbols();
+
+// Regenerate symbols occasionally for variety
+setInterval(() => {
+    const symbolsContainer = document.getElementById('floating-symbols');
+    symbolsContainer.innerHTML = '';
+    createFloatingSymbols();
+}, 30000); // Regenerate every 30 seconds
