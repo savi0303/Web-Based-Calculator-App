@@ -28,22 +28,17 @@ body {
     font-size: 40px;
     animation: float 20s linear infinite;
     z-index: -1;
+    opacity: 0.3; /* Set consistent opacity */
 }
 
 @keyframes float {
     0% {
         transform: translate(0, 0) rotate(0deg);
-        opacity: 0;
-    }
-    10% {
-        opacity: 0.3;
-    }
-    90% {
-        opacity: 0.3;
+        opacity: 0.3; /* Consistent opacity throughout */
     }
     100% {
         transform: translate(var(--translate-x), var(--translate-y)) rotate(var(--rotation));
-        opacity: 0;
+        opacity: 0.3; /* Same opacity at end */
     }
 }
 
